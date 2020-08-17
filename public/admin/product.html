@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>product</title>	
+</head>
+<body>
+    <div class="product">
+    <form action="/admin/product" enctype="multipart/form-data" method="post">
+        Title: <input id="title" name="title" type="text"></br>
+        Description: <input id="description" name="description" type="text"></br>
+        Category:
+        <select id="category" name="category">
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="accessories">Accessories</option>
+        </select></br>
+        Price: <input id="price" name="price" type="text"></br>
+        Texture: <input id="texture" name="texture" type="text"></br>
+        Ｗash: <input id="wash" name="wash" type="text"></br>
+        Place: <input id="place" name="place" type="text"></br>
+        Note: <input id="note" name="note" type="text"></br>
+        Story: <input id="story" name="story" type="text"></br>
+        Color: <input id="color" name="color" type="text"></br>
+        Size: <input id="size" name="size" type="text"></br>
+        Stock: <input id="stock" name="stock" type="text"></br>
+        Main_image: <input id="main_image" name="main_image" type="file" /></br>
+        Images: <input id="images" name="images" type="file" data-target="file-uploader" accept="image/*" multiple="multiple"/></br>
+    <input id="add" type="submit" value=add>
+    </form>
+    </div>
+</body>
+</html>

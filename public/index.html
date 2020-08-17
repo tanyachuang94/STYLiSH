@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="description" content="ecommerce website. updated at 202001031559."> -->
+    <title>Stylish 2020 Summer</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" media="all">
+</head>
+    <body>
+        <header>
+            <div class="padding-mobile"></div>
+            <div class="logo"><a href="./"><img src="imgs/logo.png"></a></div>
+            <nav>
+                <div class="item"><a href="/api/1.0/products/women">女裝</a></div>
+                <div class="item"><a href="/api/1.0/products/men">男裝</a></div>
+                <div class="item"><a href="/api/1.0/products/accessories">配件</a></div>
+            </nav>
+            <div class="feature">
+                <form class="item" action="./">
+                    <input type="text" class="search" name="tag">
+                </form>
+                <a href="cart.html" class="item cart"><div id="cart-qty" class="qty"></div></a>
+                <div class="item member">
+                    <button id="signup" type="button" onclick="loadDoc()">
+                    <img src="imgs/member.png">
+                    </button>
+                </div>
+            </div>
+        </header>
+        <nav class="mobile">
+            <div class="item"><a href="./?tag=women">女裝</a></div>
+            <div class="item"><a href="./?tag=men">男裝</a></div>
+            <div class="item"><a href="./?tag=accessories">配件</a></div>
+        </nav>
+        <div class="padding-header-mobile"></div>
+        <div class="feature-mobile">
+            <a class="item" href="cart.html">
+                <div class="cart"><div id="cart-qty-mobile" class="qty">2</div></div>
+                購物車
+            </a>
+            <div class="item member">
+                <img src="imgs/member-mobile.png">
+                會員
+            </div>
+        </div>
+        <div class="keyvisual" id="keyvisual">
+            <a class="visual" href="./product.html?id=201807242228" style="background-image: url(&quot;/assets/keyvisuals/201807242228.jpg&quot;);"><div class="story">於是<br>我也想要給你<br>一個那麼美好的自己。<br>不朽《與自己和好如初》</div></a><a class="visual current" href="./product.html?id=201807242222" style="background-image: url(&quot;/assets/keyvisuals/201807242222.jpg&quot;);"><div class="story">永遠<br>展現自信與專業<br>無法抵擋的男人魅力。<br>復古《再一次經典》</div></a><a class="visual" href="./product.html?id=201807202140" style="background-image: url(&quot;/assets/keyvisuals/201807202140.jpg&quot;);"><div class="story">瞬間<br>在城市的角落<br>找到失落多時的記憶。<br>印象《都會故事集》</div></a><div class="step"><a class="circle"></a><a class="circle current"></a><a class="circle"></a></div>
+        </div>
+        <main>
+            <div class="view">
+                <div id="products" class="products">
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="view">
+                <div class="link link-0">
+                    <div class="item">關於 Stylish</div>
+                    <div class="item">服務條款</div>
+                    <div class="item">隱私政策</div>
+                </div>
+                <div class="link link-1">
+                    <div class="item">聯絡我們</div>
+                    <div class="item">FAQ</div>
+                </div>
+                <div class="social">
+                    <img src="imgs/line.png">
+                    <img src="imgs/twitter.png">
+                    <img src="imgs/facebook.png">
+                </div>
+                <div class="copyright">
+                    © 2018. All rights reserved.
+                </div>
+            </div>
+        </footer>
+        <div id="loading" class="loading">
+            <img src="imgs/loading.gif">
+        </div>
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+    <script>
+        fetch('/api/1.0/products/all')
+        .then(res =>　res.json()) 
+        .then(res => {
+            const products = document.getElementById('products')
+            for (let i=0; i < res.data.length; i++) {
+                let a = document.createElement('a')
+                a.setAttribute('class', 'product')
+                a.setAttribute('href', 'product.html?id='+ res.data[i].id)
+                let img = document.createElement('img');
+                img.setAttribute('src', res.data[i].main_image)
+                a.appendChild(img)
+                let divColors = document.createElement('div')
+                divColors.setAttribute('class', 'colors')
+                a.appendChild(divColors)
+                for (let j=0; j < res.data[i].colors.length; j++) {
+                    let divColor = document.createElement('div')
+                    divColor.setAttribute('class', 'color')
+                    divColor.setAttribute('style', 'background-color:#'+res.data[i].colors[j].code);
+                    divColors.appendChild(divColor)
+                }
+                let divName = document.createElement('div')
+                divName.setAttribute('class', 'name')
+                divName.innerHTML = res.data[i].title
+                a.appendChild(divName)
+                let divPrice = document.createElement('div')
+                divPrice.setAttribute('class', 'price')
+                divPrice.innerHTML = "TWD."+res.data[i].price
+                a.appendChild(divPrice)
+                products.appendChild(a)
+            }
+        })
+        function loadDoc() {
+            fetch('/api/1.0/user/profile',{
+                // body: JSON.stringify(body),
+                headers: {'Content-Type':'application/json'},
+                method: 'GET'
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(res) {
+                if (res.length < 13){
+                    window.location = res
+                } else {
+                    window.location = 'profile.html'
+                }
+            })
+            // .catch(err =>{console.log(err)});
+        }
+    </script>
+</body>
+</html>

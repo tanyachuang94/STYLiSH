@@ -1,0 +1,20 @@
+{
+  "name": "stylish",
+  "version": "1.0.0",
+  "description": "website URL  http://54.168.9.223/ Run Web Server in the Background solution npm install pm2 -g",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0"
+  }
+}

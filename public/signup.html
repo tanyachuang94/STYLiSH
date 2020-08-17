@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登入</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" media="all">
+</head> 
+    <body>
+        <header>
+            <div class="padding-mobile"></div>
+            <div class="logo"><a href="./"><img src="imgs/logo.png"></a></div>
+            <nav>
+                <div class="item"><a href="./?tag=women">女裝</a></div>
+                <div class="item"><a href="./?tag=men">男裝</a></div>
+                <div class="item"><a href="./?tag=accessories">配件</a></div>
+            </nav>
+            <div class="feature">
+                <form class="item" action="./">
+                    <input type="text" class="search" name="tag">
+                </form>
+                <a href="cart.html" class="item cart"><div id="cart-qty" class="qty"></div></a>
+                <div class="item member">
+                    <img src="imgs/member.png">
+                </div>
+            </div>
+        </header>
+        <nav class="mobile">
+            <div class="item"><a href="./?tag=women">女裝</a></div>
+            <div class="item"><a href="./?tag=men">男裝</a></div>
+            <div class="item"><a href="./?tag=accessories">配件</a></div>
+        </nav>
+        <div class="padding-header-mobile"></div>
+        <div class="feature-mobile">
+            <a class="item" href="cart.html">
+                <div class="cart"><div id="cart-qty-mobile" class="qty">2</div></div>
+                購物車
+            </a>
+            <div class="item member">
+                <img src="imgs/member-mobile.png">
+                會員
+            </div>
+        </div>
+        <div class="keyvisual" id="keyvisual">
+            <a class="visual" href="./product.html?id=201807242228" style="background-image: url(&quot;/assets/keyvisuals/201807242228.jpg&quot;);"><div class="story">於是<br>我也想要給你<br>一個那麼美好的自己。<br>不朽《與自己和好如初》</div></a><a class="visual current" href="./product.html?id=201807242222" style="background-image: url(&quot;/assets/keyvisuals/201807242222.jpg&quot;);"><div class="story">永遠<br>展現自信與專業<br>無法抵擋的男人魅力。<br>復古《再一次經典》</div></a><a class="visual" href="./product.html?id=201807202140" style="background-image: url(&quot;/assets/keyvisuals/201807202140.jpg&quot;);"><div class="story">瞬間<br>在城市的角落<br>找到失落多時的記憶。<br>印象《都會故事集》</div></a><div class="step"><a class="circle"></a><a class="circle current"></a><a class="circle"></a></div>
+        </div>
+
+    <main>  
+    <div class="view">
+    <script>
+    function postData(data){
+        const body ={
+          access_token: data,
+          provider: "facebook"
+        }
+        fetch('/api/1.0/user/signin',{
+                body: JSON.stringify(body),
+                headers: {'Content-Type':'application/json'},
+                method: 'POST'
+            }).then(res=>　res.json())  //// 輸出成 json
+            // .then(body =>console.log(body))
+    }    
+    function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus()
+        // console.log(response);                   // The current login status of the person.
+        if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+            data = response.authResponse.accessToken 
+            postData(data)
+            // testAPI()
+        } else {                     // Not logged into your webpage or we are unable to tell.
+        document.getElementById('status').innerHTML = 'Please log ' +
+            'into this webpage.';
+        }
+    }
+
+    function checkLoginState() {       // Called when a person is finished with the Login Button.
+        FB.getLoginStatus(function(response) {   // See the onlogin handler
+        statusChangeCallback(response);
+        });
+    }
+
+    window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '609632229901664',
+      cookie     : true,            // Enable cookies to allow the server to access the session.
+      xfbml      : true,            // Parse social plugins on this webpage.
+      version    : 'v7.0'           // Use this Graph API version for this call.
+    });
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+    };
+
+    (function(d, s, id) {           // Load the SDK asynchronously
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    function profile() {
+        let email = document.getElementById("signin_email").value
+        let password = document.getElementById("signin_password").value
+        var data = {email: email, password:password}
+            fetch('/api/1.0/user/signin',{
+                body: JSON.stringify(data),
+                headers: {'Content-Type':'application/json'},
+                method: 'POST'
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(res) {
+                window.location = 'profile.html'
+            })
+        }
+
+    function signup() {
+        let email = document.getElementById("email").value
+        let name = document.getElementById("user_name").value
+        let password = document.getElementById("password").value
+        var data = {email: email, name: name, password:password}
+            fetch('/api/1.0/user/signup',{
+                body: JSON.stringify(data),
+                headers: {'Content-Type':'application/json'},
+                method: 'POST'
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(res) {
+                    window.location = 'profile.html'
+            })
+        }
+    </script>
+    </script>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0"></script>
+    <div style="text-align:center; width:100%">
+        <div id="signin">
+            <h3> 登入 </h3>
+                E-mail: </br>
+                <input id="signin_email" name="email" type="text"></br>
+                Password:</br>
+                <input id="signin_password" name="password" type="text"></br>
+                <button id="signin" type="button" onclick="profile()"> Sign in </button>
+            <br>
+        </div>
+        
+        <div id="signup">
+            <h3> 註冊 </h3>
+                E-mail: </br>
+                <input id="email" name="email" type="text"></br>
+                Name: </br>
+                <input id="user_name" name="user_name" type="text"></br>
+                Password:</br>
+                <input id="password" name="password" type="text"></br>
+                <button id="signup" type="button" onclick="signup()"> Sign up </button></br>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+            <div id="status">
+            </div>
+        </div>
+    </div>
+</div>  
+</main>
+<footer>
+    <div class="view">
+        <div class="link link-0">
+            <div class="item">關於 Stylish</div>
+            <div class="item">服務條款</div>
+            <div class="item">隱私政策</div>
+        </div>
+        <div class="link link-1">
+            <div class="item">聯絡我們</div>
+            <div class="item">FAQ</div>
+        </div>
+        <div class="social">
+            <img src="imgs/line.png">
+            <img src="imgs/twitter.png">
+            <img src="imgs/facebook.png">
+        </div>
+        <div class="copyright">
+            © 2018. All rights reserved.
+        </div>
+    </div>
+</footer>
+<div id="loading" class="loading">
+    <img src="imgs/loading.gif">
+</div>
+
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+</body>
+</html>
+
+
+</body>
+</html>

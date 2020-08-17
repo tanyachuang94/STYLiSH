@@ -1,0 +1,11 @@
+config:
+  target: "http://54.168.9.223"
+  http:
+    pool: 20
+  phases:
+    - duration: 20
+      arrivalRate: 40
+scenarios:
+  - flow:
+    - get:
+        url: "/api/1.0/order/payments"
